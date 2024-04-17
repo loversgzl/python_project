@@ -1,0 +1,1 @@
+2024-03-14 16:25:56,613 - WARNING - This is a warning message for logger2.

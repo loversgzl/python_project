@@ -1,0 +1,6 @@
+2024-03-14 16:25:56,613 - INFO - This is an informational message for logger1.
+2024-03-14 16:25:56,613 - INFO - 2024-03-14 16:25:56.613271
+
+
+
+
