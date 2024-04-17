@@ -7,8 +7,8 @@ def init_log():
     logger2 = logging.getLogger('logger2')
 
     # 创建文件处理程序，指定日志文件名
-    file_handler1 = logging.FileHandler('log_file1.txt', encoding='utf-8')
-    file_handler2 = logging.FileHandler('log_file2.txt', encoding='utf-8')
+    file_handler1 = logging.FileHandler('../log_file1.txt', encoding='utf-8')
+    file_handler2 = logging.FileHandler('../log_file2.txt', encoding='utf-8')
 
     # 创建格式化器，定义日志记录的格式
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
