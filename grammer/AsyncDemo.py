@@ -142,18 +142,24 @@ class AsyncDemo:
         print("1")
         print("2")
         print("3")
-        await self.B()
+        try:
+            await self.B()
+        except:
+            print("4")
+        print(5)
 
     async def B(self):
         print("a")
         print("b")
         print("c")
+        raise Exception("报错了")
+        print("d")
 
 if __name__ == '__main__':
     AsyncDemo = AsyncDemo()
     # 可以作为最高层级的入口点，如果不用这个，直接调用异步的函数，会报： RuntimeWarning: coroutine 'main' was never awaited，且直接调用并不会真正执行
     # 注意，main 函数由于加了关键字，已经是协程函数，直接调用(AsyncDemo.main())会返回协程对象，并不会执行函数内的代码，执行协程代码需要使用(asyncio.run)
     print("开始")
-    # asyncio.run(AsyncDemo.A())
+    asyncio.run(AsyncDemo.A())
     print("结束")
     print(datetime.now())
