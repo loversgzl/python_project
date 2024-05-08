@@ -106,6 +106,9 @@ def quote_demo():
         temp.clear() # 这里不行，上一个引用还在列表中，不能对当前引用进行清空，可以使用copy对地址进行复制
     print(total_list)
 
+#反省：浑浑噩噩又一周，一年才52周，每天一次小复盘，每周/月一次大复盘；订制各种目标；
+#本周运动目标：学会各种跳绳，每天跳绳1000个；每天平板支撑20个*5组；
+#本周学习目标：python 基础，Numpy，Pandas学习总结
 
 # 进阶：Python 推导式
 def advance():
@@ -115,4 +118,4 @@ def advance():
     print(num_dict)
 
 if __name__ == '__main__':
-    advance()
+    print(365/7)
