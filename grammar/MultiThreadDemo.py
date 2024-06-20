@@ -25,8 +25,8 @@ class MultiThread():
         self.threads = []
         startTime = datetime.now()
 
-        # 创建和启动十个线程
-        for i in range(10):
+        # for循环创建和启动十个线程
+        for i in range(1000):
             thread = threading.Thread(target=self.worker, args=(i,))
             self.threads.append(thread)
             thread.start()
@@ -39,13 +39,15 @@ class MultiThread():
         print("开始时间：%s, 结束时间：%s, 总共耗时耗时：%s" % (startTime, endTime, (endTime - startTime)))
 
     def worker(self, thread_id):
-        print(f"线程：{thread_id}，休息 5 秒")
-        for i in range(5):
-            time.sleep(1)
+        print(f"线程：{thread_id}，开始计算")
+        temp = 0
+        for i in range(10000000):
+            temp += i
+
 
     def createThreadTwo(self):
         # 创建 ThreadPoolExecutor，并指定线程数（可以根据需求调整）
-        with ThreadPoolExecutor(max_workers=4) as executor:
+        with ThreadPoolExecutor(max_workers=1000) as executor:
             # 提交任务给线程池
             # 这里提交了十万个任务，每个任务执行 my_function 函数
             futures = [executor.submit(self.worker, i) for i in range(10000)]
@@ -55,76 +57,11 @@ class MultiThread():
                 future.result()
 
         print("All threads have finished")
-    def process_data(self, data):
-        # Your processing logic here
-        return data * 2
-    def createThreadThree(self):
-        # 创建 ProcessPoolExecutor，并指定进程数（可以根据需求调整）
-        with ProcessPoolExecutor(max_workers=4) as executor:
-            # 提交任务给进程池
-            # 这里提交了十个任务，每个任务执行 process_data 函数
-            data_to_process = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            futures = [executor.submit(self.worker, item) for item in data_to_process]
-            while True:
-                isDone = True
-                for future in futures:
-                    if not future.done():
-                        isDone = False
-                if isDone:
-                    break
-                print("还未结束，休息一分钟后继续扫描")
-                time.sleep(60)
-
-
-            # 使用 as_completed 迭代已完成的任务
-            # for future in as_completed(futures):
-            #     # result = future.result()
-            #     print(future)
-
-        print("All threads have finished")
-
-    def task_function(self):
-        # 模拟一个耗时的任务
-        time.sleep(3)
-        print("Task completed")
-    def createThreadFour(self):
-        # 使用 ProcessPoolExecutor 创建进程池
-        with ProcessPoolExecutor() as executor:
-            # 提交任务给进程池
-            future = executor.submit(self.task_function)
-
-            # 判断任务是否已经结束
-            while not future.done():
-                print("Task is still running...")
-                time.sleep(1)
-
-            # 获取任务的结果
-            # result = future.result()
-            # print("Task result:", result)
-
-# def MultiThread():
-#     list_size = 100
-#     paramList = []
-#     with ThreadPoolExecutor(max_workers=list_size) as executor:
-#         futures = []
-#
-#         for i in range(list_size):
-#             if (i + 1) == pool_list:
-#                 array_list = band_casting_users[i * list_size:]
-#             else:
-#                 array_list = band_casting_users[i * list_size: (i + 1) * list_size]
-#
-#             futures.append(executor.submit(process_chunk, array_list, new_list))
-#
-#         # 等待所有线程完成
-#         wait(futures)
-#
-#     print("数据大小:", len(band_casting_users))
 
 
 
 if __name__ == '__main__':
     MultiThread = MultiThread()
-    MultiThread.createMultiThread()
+    MultiThread.createThreadTwo()
 
 

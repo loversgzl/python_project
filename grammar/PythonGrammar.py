@@ -1,4 +1,6 @@
 import operator
+from functools import reduce
+
 # 问题
 '''
 问：py2 和 py3 的区别有哪些？
@@ -31,17 +33,66 @@ import operator
 '''
 
 
-# 其它操作
+'''
+基础知识
+常用数据结构：列表、元组、字典、集合
+
+
+
+'''
+
+'''
+其它操作
+'''
 def other_opt():
     a, b, c = 1, 2, 3
     print("变量追加到后面", type(a))
     print("变量：%s，可以插入到不同位置" % type(a))
 
+'''
+字典/元组
+1、字典本身只有键是可迭代的
+'''
+def dict_demo():
+    # 遍历键值
+    tiny_dict = {'name': 'runoob', 'likes': 123, 'url': 'www.runoob.com'}
+    for key in tiny_dict:
+        print("只有key", key)
+    for value in tiny_dict.values():
+        print("遍历值value", value)
 
-# LIST(什么元素都能存，包括数字，字符串，对象)
+    # 基础操作
+    tiny_dict['name'] = 'TOM'
+    print(tiny_dict['name']) # 如果不存在key则会报错
+    print(tiny_dict.get('name1'))
+    print(tiny_dict)
+    print('name' in tiny_dict)
+    print(list(tiny_dict.keys())) # 返回一个可迭代的视图对象，需要转换
+    print(tiny_dict.values())
+
+# TUPLE（Python 的元组与列表类似，不同之处在于元组的元素不能修改）
+def tuple_demo():
+    # 只有一个元素时需要添加逗号，否则会被认为是括号
+    tup = (1, 2, 3, 4)
+    tup = 1, 2, 3, 4
+    print(tup)
+
+    # 不能修改，包括删除，但是可以进行组合
+    tup1 = (12, 34.56)
+    tup2 = ('abc', 'xyz')
+    tup3 = tup1 + tup2
+    print(tup3)
+
+
+'''
+列表
+1、LIST(什么元素都能存，包括数字，字符串，对象)
+'''
 def list_demo():
     nums = [0, 1, 2, '3']
     # 查
+    for index, item in enumerate(nums):
+        print(index, item)
     print(nums[0])
     print(nums[1:3])
     print(nums[-1])
@@ -74,30 +125,28 @@ def list_demo():
     print(nums)
     print(nums.clear()) # 清空列表
 
-def dict_demo():
-    tinydict = {'name': 'runoob', 'likes': 123, 'url': 'www.runoob.com'}
-    tinydict['name'] = 'TOM'
-    print(tinydict['name']) # 如果不存在key则会报错
-    print(tinydict.get('name1'))
-    print(tinydict)
-    print('name' in tinydict)
-    print(list(tinydict.keys())) # 返回一个可迭代的视图对象，需要转换
-    print(tinydict.values())
 
-# TUPLE（Python 的元组与列表类似，不同之处在于元组的元素不能修改）
-def tuple_demo():
-    # 只有一个元素时需要添加逗号，否则会被认为是括号
-    tup = (1, 2, 3, 4)
-    tup = 1, 2, 3, 4
-    print(tup)
+'''
+匿名函数:lambda 的主体是只有一行的简单表达式，并不能扩展成一个多行的代码块。
+进阶：Python 推导式
+函数式编程：将函数当做参数使用，map()、filter() 和 reduce()
+'''
+def advance_demo():
+    num_list = [i for i in range(30) if i % 3 == 0]
+    print(num_list)
+    square = lambda x: x**2
+    num_dict = {square for x in (2, 4, 6)}
+    print(num_dict)
 
-    # 不能修改，包括删除，但是可以进行组合
-    tup1 = (12, 34.56)
-    tup2 = ('abc', 'xyz')
-    tup3 = tup1 + tup2
-    print(tup3)
+    # 函数式编程，将函数作用于列表上的每一个值
+    new_list = map(lambda x: x * 2, num_list)
+    new_list = filter(lambda x: x % 2 == 0, num_list)
+    product = reduce(lambda x, y: x * y, num_list) # 将列表中的值相加
 
-# 函数中引用生效
+
+'''
+函数中引用生效
+'''
 def quote_demo():
     total_list = []
     for i in range(10):
@@ -106,16 +155,19 @@ def quote_demo():
         temp.clear() # 这里不行，上一个引用还在列表中，不能对当前引用进行清空，可以使用copy对地址进行复制
     print(total_list)
 
-#反省：浑浑噩噩又一周，一年才52周，每天一次小复盘，每周/月一次大复盘；订制各种目标；
-#本周运动目标：学会各种跳绳，每天跳绳1000个；每天平板支撑20个*5组；
-#本周学习目标：python 基础，Numpy，Pandas学习总结
+'''
+面向对象
+p2/p3：最后我想再提一下版本区别。你可能在许多教程中看到过这样的要求：我们还需要在模块所在的文件夹新建一个 __init__.py，内容可以为空，也可以用来表述包对外暴露的模块接口。不过，事实上，这是 Python 2 的规范。
+在 Python 3 规范中，__init__.py 并不是必须的，很多教程里没提过这一点，或者没讲明白，我希望你还是能注意到这个地方。
+'''
+class object_demo:
+    def __init__(self):
+        self.__context = "__ 开头的属性是私有属性"
 
-# 进阶：Python 推导式
-def advance():
-    num_list = [i for i in range(30) if i % 3 == 0]
-    print(num_list)
-    num_dict = {x: x**2 for x in (2, 4, 6)}
-    print(num_dict)
 
 if __name__ == '__main__':
-    print(365/7)
+    d = {'name': 'jason', ['education']: ['Tsinghua University', 'Stanford University']}
+
+
+
+
